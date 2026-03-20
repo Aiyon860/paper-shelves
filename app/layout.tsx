@@ -20,7 +20,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Digital Library",
+  title: "Paper Shelves",
   description: "A modern digital library application",
 };
 

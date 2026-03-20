@@ -6,13 +6,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateSlug(title: string, id: string): string {
-  // Convert title to lowercase, replace non-alphanumeric chars with hyphens
   const formattedTitle = title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)+/g, ""); // Remove leading/trailing hyphens
+    .replace(/(^-|-$)+/g, "");
 
-  // Extract last 6 characters of the UUID
   const shortId = id.substring(id.length - 6);
 
   return `${formattedTitle}-${shortId}`;

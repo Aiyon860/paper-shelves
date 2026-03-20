@@ -37,11 +37,9 @@ export function BookCard(book: BookCardProps) {
       >
         <div className="p-5 pb-0">
           <div className="relative aspect-2/3 w-full shrink-0 overflow-hidden rounded-md bg-linear-to-br from-secondary via-background to-muted border border-border/50 shadow-sm dark:shadow-[0_2px_10px_rgba(0,0,0,0.4)] transition-all duration-500 ease-out group-hover:scale-[1.03] group-hover:shadow-md">
-            {/* Book spine simulation */}
             <div className="absolute left-0 top-0 bottom-0 w-3.5 bg-linear-to-r from-black/10 via-black/5 to-transparent dark:from-black/30 z-10" />
             <div className="absolute left-0 top-0 bottom-0 w-px bg-white/50 dark:bg-white/5 z-20" />
             <div className="absolute left-3.5 top-0 bottom-0 w-px bg-white/30 dark:bg-white/5 z-20" />
-            {/* Cover text */}
             <div className="absolute inset-0 p-4 pt-8 flex flex-col items-center text-center z-30">
               <h4 className="font-serif text-lg font-bold leading-snug text-foreground/90 line-clamp-4">
                 {title}

@@ -19,7 +19,6 @@ export function SuccessToast() {
         toast.success("Book updated successfully!");
       }
 
-      // Remove the success parameter from the URL cleanly
       const newSearchParams = new URLSearchParams(searchParams.toString());
       newSearchParams.delete("success");
 

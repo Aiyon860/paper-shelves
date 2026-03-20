@@ -31,7 +31,6 @@ export default function Form({
       ?.map((bc) => bc.categories?.id)
       .filter(Boolean) || [];
 
-  // Bind the bookId to the updateBook action if in edit mode
   const actionToUse =
     isEdit && initialData ? updateBook.bind(null, initialData.id) : addBook;
 

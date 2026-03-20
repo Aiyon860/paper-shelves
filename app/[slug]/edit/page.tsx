@@ -17,7 +17,6 @@ export default async function EditBookPage({ params }: EditBookPageProps) {
   const { slug } = await params;
   const partialId = extractIdFromSlug(slug);
 
-  // Fetch the existing book data
   const { data: books, error } = await supabase
     .from("books")
     .select("*, book_categories(categories(id, name))")
@@ -45,7 +44,6 @@ export default async function EditBookPage({ params }: EditBookPageProps) {
 
   return (
     <div className="container mx-auto px-4 py-12 md:py-16 max-w-3xl animate-in fade-in duration-500">
-      {/* Back Navigation */}
       <div className="mb-8 flex items-center">
         <Button
           variant="ghost"
@@ -60,7 +58,6 @@ export default async function EditBookPage({ params }: EditBookPageProps) {
         </Button>
       </div>
 
-      {/* Page Header */}
       <div className="mb-10">
         <div className="flex items-center gap-3 mb-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary border border-primary/20 shadow-sm">
@@ -87,9 +84,8 @@ export default async function EditBookPage({ params }: EditBookPageProps) {
         </div>
       )}
 
-      {/* Form Card */}
       <Card className="border-border/60 shadow-lg bg-card/80 backdrop-blur-sm dark:shadow-black/40 overflow-hidden py-0 gap-0">
-        <div className="h-1.5 w-full bg-gradient-to-r from-primary/40 via-primary to-primary/40" />
+        <div className="h-1.5 w-full bg-linear-to-r from-primary/40 via-primary to-primary/40" />
         <CardContent className="p-6 pt-8 sm:p-10">
           <Form
             key={key}

@@ -36,7 +36,6 @@ export function DeleteBookDialog({ bookId, bookTitle }: DeleteBookDialogProps) {
       if (response.status === "success") {
         toast.success(response.message);
         setIsOpen(false);
-        // Force navigate back to home after successful deletion
         router.push("/");
         router.refresh();
       } else {
@@ -62,7 +61,6 @@ export function DeleteBookDialog({ bookId, bookTitle }: DeleteBookDialogProps) {
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="sm:max-w-md bg-card/95 backdrop-blur-md border-border/60 shadow-xl overflow-hidden">
-        {/* Top accent line */}
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-destructive/80" />
 
         <AlertDialogHeader className="pt-2 flex flex-col items-center">

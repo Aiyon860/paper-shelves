@@ -1,8 +1,8 @@
-# Digital Book Library
+# Paper Shelves
 
 A sophisticated, full-stack web application designed for cataloging and managing a digital book collection. Built with **Next.js (App Router)** and **Supabase**, this project demonstrates modern React patterns, server-side data fetching, atomic database transactions, and a strong focus on User Experience (UX) and clean architecture.
 
-## 🚀 Key Features
+## Key Features
 
 - **Full CRUD Operations**: Effortlessly add, edit, view, and delete book manuscripts.
 - **Advanced Search & Filtering**: Server-side search integrated directly into the URL parameters. Includes input debouncing and auto-refocusing for a seamless user experience.
@@ -12,7 +12,7 @@ A sophisticated, full-stack web application designed for cataloging and managing
 - **Polished UX**: Beautifully crafted UI using Tailwind CSS and Shadcn UI. Includes loading skeletons, smooth transition states, network status indicators, and toast notifications.
 - **Fully Tested**: Comprehensive unit and component test suites built with **Vitest** and React Testing Library.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
@@ -23,7 +23,7 @@ A sophisticated, full-stack web application designed for cataloging and managing
 - **Testing**: Vitest, React Testing Library
 - **Validation**: Zod
 
-## 🏗️ Architecture & Design Decisions
+## Architecture & Design Decisions
 
 This project is built to reflect enterprise-level standards and best practices:
 
@@ -32,7 +32,7 @@ This project is built to reflect enterprise-level standards and best practices:
 3. **URL-Driven State**: Search queries and pagination parameters are stored in the URL. This enables deep-linking, better SEO, and allows the Next.js server to handle filtering before rendering the page.
 4. **Cache Revalidation**: Next.js caching is leveraged effectively. Server Actions explicitly call `revalidateTag('books')` to ensure the user always sees the most up-to-date data immediately after a mutation.
 
-## 💻 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js (v18 or higher)
@@ -42,8 +42,8 @@ This project is built to reflect enterprise-level standards and best practices:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/book-library-app.git
-   cd book-library-app
+   git clone https://github.com/yourusername/paper-shelves.git
+   cd paper-shelves
    ```
 
 2. **Install dependencies:**
@@ -64,7 +64,7 @@ This project is built to reflect enterprise-level standards and best practices:
    ```
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 🧪 Testing
+## Testing
 
 This project uses Vitest for blazing-fast unit and component testing. The test suite covers utility functions, complex component states (like modals and toasts), and user interactions.
 
@@ -73,7 +73,7 @@ To run the test suite:
 npm run test
 ```
 
-## 📈 Future Roadmap
+## Future Roadmap
 
 - Implementation of user authentication and personalized libraries.
 - Rich text editor for manuscript synopsis.
