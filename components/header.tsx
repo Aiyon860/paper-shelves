@@ -32,7 +32,7 @@ export function Header() {
               href="/add"
               className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
-              Add Book
+              Add Manuscript
             </Link>
           </nav>
         </div>
