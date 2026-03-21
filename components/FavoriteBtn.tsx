@@ -1,6 +1,6 @@
 "use client";
 
-import { useOptimistic, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { toggleFavorite } from "@/app/_actions";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -15,17 +15,15 @@ export function FavoriteBtn({
   initialFavorite: boolean;
 }) {
   const [, startTransition] = useTransition();
-
-  const [isFavorite, setIsFavorite] = useOptimistic(
-    initialFavorite,
-    (state, isFav: boolean) => isFav,
-  );
+  const [isFavorite, setIsFavorite] = useState(initialFavorite);
 
   const handleClick = () => {
+    const newFavorite = !isFavorite;
+    setIsFavorite(newFavorite); // Optimistic update
     startTransition(async () => {
-      setIsFavorite(!isFavorite);
       const { status, message } = await toggleFavorite(bookId, isFavorite);
       if (status === "error") {
+        setIsFavorite(!newFavorite); // Revert on error
         toast.error(message);
       } else if (status === "success") {
         toast.success(message);

@@ -37,7 +37,6 @@ export function DeleteBookDialog({ bookId, bookTitle }: DeleteBookDialogProps) {
         toast.success(response.message);
         setIsOpen(false);
         router.push("/");
-        router.refresh();
       } else {
         toast.error(response.message);
         setIsDeleting(false);
