@@ -1,10 +1,10 @@
 "use client";
 
-import { Heart } from "lucide-react";
+import { useOptimistic, useTransition } from "react";
+import { toggleFavorite } from "@/app/_actions";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useOptimistic, useTransition } from "react";
-import { toggleFavorite } from "@/app/actions";
+import { Heart } from "lucide-react";
 import { toast } from "sonner";
 
 export function FavoriteBtn({

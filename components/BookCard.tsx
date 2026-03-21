@@ -1,9 +1,9 @@
 import * as React from "react";
-import Link from "next/link";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { FavoriteBtn } from "@/components/FavoriteBtn";
-import { generateSlug } from "@/lib/utils";
 import { Tables } from "@/lib/schemas";
+import { generateSlug } from "@/lib/utils";
+import Link from "next/link";
 
 type BookCardProps = Tables<"books"> & {
   book_categories?:

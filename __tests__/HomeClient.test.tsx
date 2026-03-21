@@ -1,12 +1,12 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import HomeClient from "@/components/HomeClient";
+import { fireEvent, render, screen } from "@testing-library/react";
 import {
-  useRouter,
-  usePathname,
-  useSearchParams,
   ReadonlyURLSearchParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
 } from "next/navigation";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import HomeClient from "@/components/HomeClient";
 
 // Mock Next.js navigation hooks
 vi.mock("next/navigation", () => ({

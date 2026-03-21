@@ -1,11 +1,11 @@
-import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
-import { ArrowLeft, BookOpen, Calendar, User, Pencil } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
 import { extractIdFromSlug, generateSlug } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { FavoriteBtn } from "@/components/FavoriteBtn";
+import { ArrowLeft, BookOpen, Calendar, Pencil, User } from "lucide-react";
+import { notFound, redirect } from "next/navigation";
 import { DeleteBookDialog } from "@/components/DeleteBookDialog";
+import { FavoriteBtn } from "@/components/FavoriteBtn";
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
 
 interface BookPageProps {
   params: Promise<{ slug: string }>;

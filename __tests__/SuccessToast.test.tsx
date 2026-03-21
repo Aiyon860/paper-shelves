@@ -1,12 +1,12 @@
 import { render } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { SuccessToast } from "@/components/SuccessToast";
 import {
-  useSearchParams,
-  useRouter,
-  usePathname,
   ReadonlyURLSearchParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
 } from "next/navigation";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { SuccessToast } from "@/components/SuccessToast";
 import { toast } from "sonner";
 
 // Mock dependencies

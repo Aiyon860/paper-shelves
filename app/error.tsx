@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
 import { AlertTriangle, RefreshCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 export default function Error({
   error,
@@ -37,7 +37,7 @@ export default function Error({
 
       {error.message && (
         <div className="mb-8 max-w-xl w-full bg-muted/50 rounded-lg p-4 text-left border border-border/50 shadow-inner">
-          <p className="font-mono text-xs text-muted-foreground break-words whitespace-pre-wrap">
+          <p className="font-mono text-xs text-muted-foreground wrap-break-word whitespace-pre-wrap">
             <span className="font-semibold text-foreground/80 block mb-1">
               Error Trace:
             </span>

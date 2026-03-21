@@ -1,10 +1,10 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
 import { BookSchema } from "@/lib/definitions";
+import { createClient } from "@/lib/supabase/server";
+import { generateSlug } from "@/lib/utils";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { generateSlug } from "@/lib/utils";
 
 export type ActionState = {
   status: string;

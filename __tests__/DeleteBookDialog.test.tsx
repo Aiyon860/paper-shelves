@@ -1,7 +1,7 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { deleteBook } from "@/app/_actions";
 import { DeleteBookDialog } from "@/components/DeleteBookDialog";
-import { deleteBook } from "@/app/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -46,7 +46,10 @@ describe("DeleteBookDialog", () => {
   });
 
   it("calls deleteBook, shows success toast, and redirects on confirm", async () => {
-    vi.mocked(deleteBook).mockResolvedValue({ status: "success", message: "Deleted successfully" });
+    vi.mocked(deleteBook).mockResolvedValue({
+      status: "success",
+      message: "Deleted successfully",
+    });
 
     render(<DeleteBookDialog bookId="123" bookTitle="Test Book" />);
 
@@ -65,7 +68,10 @@ describe("DeleteBookDialog", () => {
   });
 
   it("shows error toast if deletion fails", async () => {
-    vi.mocked(deleteBook).mockResolvedValue({ status: "error", message: "Failed to delete" });
+    vi.mocked(deleteBook).mockResolvedValue({
+      status: "error",
+      message: "Failed to delete",
+    });
 
     render(<DeleteBookDialog bookId="123" bookTitle="Test Book" />);
 

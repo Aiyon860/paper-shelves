@@ -1,5 +1,5 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
@@ -41,7 +41,7 @@ export default function Loading() {
             {/* Description Field Skeleton */}
             <div className="space-y-3">
               <Skeleton className="h-5 w-48 rounded-md" />
-              <Skeleton className="h-[160px] w-full rounded-md" />
+              <Skeleton className="h-40 w-full rounded-md" />
             </div>
 
             {/* Categories Field Skeleton */}

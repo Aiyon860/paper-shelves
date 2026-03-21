@@ -1,5 +1,5 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EditBookLoadingSkeleton() {
   return (
@@ -23,7 +23,7 @@ export default function EditBookLoadingSkeleton() {
 
       {/* Form Card Skeleton */}
       <Card className="border-border/60 shadow-lg bg-card/80 backdrop-blur-sm dark:shadow-black/40 overflow-hidden py-0 gap-0">
-        <div className="h-1.5 w-full bg-gradient-to-r from-primary/40 via-primary to-primary/40" />
+        <div className="h-1.5 w-full bg-linear-to-r from-primary/40 via-primary to-primary/40" />
         <CardContent className="p-6 pt-8 sm:p-10 space-y-8">
           {/* Title Field Skeleton */}
           <div className="space-y-3">
@@ -40,12 +40,12 @@ export default function EditBookLoadingSkeleton() {
           {/* Description Field Skeleton */}
           <div className="space-y-3">
             <Skeleton className="h-5 w-48 rounded" />
-            <Skeleton className="h-[160px] w-full rounded-md" />
+            <Skeleton className="h-40 w-full rounded-md" />
           </div>
 
           {/* Submit Button Skeleton */}
           <div className="pt-6 flex justify-end border-t border-border/50">
-            <Skeleton className="h-14 w-full sm:w-[200px] rounded-md" />
+            <Skeleton className="h-14 w-full sm:w-50 rounded-md" />
           </div>
         </CardContent>
       </Card>

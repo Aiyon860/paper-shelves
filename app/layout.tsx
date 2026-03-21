@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-import { ThemeProvider } from "@/components/theme-provider";
-import { Header } from "@/components/header";
-import { Toaster } from "@/components/ui/sonner";
+import { Inter, Playfair_Display } from "next/font/google";
 import { NetworkStatus } from "@/components/NetworkStatus";
 import { SuccessToast } from "@/components/SuccessToast";
+import { Header } from "@/components/header";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import type { Metadata } from "next";
 import { Suspense } from "react";
 
 const inter = Inter({
