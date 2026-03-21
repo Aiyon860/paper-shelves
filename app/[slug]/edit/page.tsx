@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { PenLine, ArrowLeft, AlertCircle } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 import { extractIdFromSlug, generateSlug } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,6 +17,7 @@ export default async function EditBookPage({ params }: EditBookPageProps) {
   const { slug } = await params;
   const partialId = extractIdFromSlug(slug);
 
+  const supabase = await createClient();
   const { data: books, error } = await supabase
     .from("books")
     .select("*, book_categories(categories(id, name))")

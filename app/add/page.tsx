@@ -3,11 +3,12 @@ import { BookPlus, ArrowLeft, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Form from "@/components/add-edit-book/Form";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 import { connection } from "next/server";
 
 export default async function AddBookPage() {
   await connection();
+  const supabase = await createClient();
   const { data: categories, error } = await supabase
     .from("categories")
     .select("id, name");

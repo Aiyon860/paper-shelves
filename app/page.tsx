@@ -10,7 +10,7 @@ import {
 import { cacheTag } from "next/cache";
 import { cacheLife } from "next/cache";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 import HomeClient from "@/components/HomeClient";
 
 export async function getBooks({
@@ -26,6 +26,7 @@ export async function getBooks({
   cacheLife("default");
   cacheTag("books");
 
+  const supabase = await createClient();
   const q = supabase
     .from("books")
     .select(
