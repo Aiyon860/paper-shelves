@@ -12,7 +12,8 @@ export default async function AddBookPage() {
   const supabase = await createClient();
   const { data: categories, error } = await supabase
     .from("categories")
-    .select("id, name");
+    .select("id, name")
+    .order("name", { ascending: true });
 
   const key = crypto.randomUUID();
 
