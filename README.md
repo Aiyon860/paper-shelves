@@ -30,7 +30,7 @@ This project is built to reflect enterprise-level standards and best practices:
 1. **Server vs. Client Components**: Strict separation of concerns. Data fetching and pagination occur on the Server Components to minimize JavaScript bundles, while interactivity (search inputs, forms) is isolated in Client Components.
 2. **Atomic Database Transactions**: To handle the Many-to-Many relationship between `books` and `categories`, the application utilizes **Supabase RPC (Remote Procedure Calls)**. Operations like adding, updating, or deleting books execute within atomic PostgreSQL functions (`add_book_with_categories`, `delete_book_with_categories`), ensuring data integrity without multiple frontend-to-backend roundtrips.
 3. **URL-Driven State**: Search queries and pagination parameters are stored in the URL. This enables deep-linking, better SEO, and allows the Next.js server to handle filtering before rendering the page.
-4. **Cache Revalidation**: Next.js caching is leveraged effectively. Server Actions explicitly call `revalidateTag('books')` to ensure the user always sees the most up-to-date data immediately after a mutation.
+
 
 ## Getting Started
 

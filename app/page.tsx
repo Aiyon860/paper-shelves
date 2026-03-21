@@ -6,7 +6,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { cacheLife, cacheTag } from "next/cache";
+
 import HomeClient from "@/components/HomeClient";
 import { createClient } from "@/lib/supabase/server";
 import { AlertCircle } from "lucide-react";
@@ -21,10 +21,6 @@ export async function getBooks({
   to: number;
   searchQuery?: string;
 }) {
-  "use cache";
-  cacheLife("default");
-  cacheTag("books");
-
   const supabase = await createClient();
   const q = supabase
     .from("books")

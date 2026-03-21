@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { NetworkStatus } from "@/components/NetworkStatus";
 import { SuccessToast } from "@/components/SuccessToast";
@@ -51,6 +52,7 @@ export default function RootLayout({
             <SuccessToast />
           </Suspense>
           <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>

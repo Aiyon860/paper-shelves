@@ -3,7 +3,7 @@
 import { BookSchema } from "@/lib/definitions";
 import { createClient } from "@/lib/supabase/server";
 import { generateSlug } from "@/lib/utils";
-import { revalidateTag } from "next/cache";
+
 import { redirect } from "next/navigation";
 
 export type ActionState = {
@@ -51,8 +51,6 @@ export async function addBook(initialState: ActionState, formData: FormData) {
       message: "Failed to add book",
     };
   }
-
-  revalidateTag("books", "max");
 
   const newSlug = insertedBook
     ? generateSlug(insertedBook.title, insertedBook.id)
@@ -106,7 +104,6 @@ export async function updateBook(
     };
   }
 
-  revalidateTag("books", "max");
   const newSlug = returnedBook
     ? generateSlug(returnedBook.title, returnedBook.id)
     : undefined;
@@ -133,8 +130,6 @@ export async function toggleFavorite(bookId: string, favoriteStatus: boolean) {
     };
   }
 
-  revalidateTag("books", "max");
-
   return {
     status: "success",
     message: "Favorite status updated",
@@ -156,8 +151,6 @@ export async function deleteBook(bookId: string) {
       message: "Failed to delete the manuscript from archives.",
     };
   }
-
-  revalidateTag("books", "max");
 
   return {
     status: "success",
