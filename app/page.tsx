@@ -8,7 +8,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Home",
-  description: "Browse the collection of books in Paper Shelves.",
+  description:
+    "Discover Paper Shelves, a beautifully modern digital library application designed to help you seamlessly manage, organize, and track your personal book collection.",
 };
 
 export async function getBooks({

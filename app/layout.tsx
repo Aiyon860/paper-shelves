@@ -28,18 +28,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(getBaseUrl()),
   title: {
     template: "%s | Paper Shelves",
-    default: "Paper Shelves",
+    default: "Paper Shelves | Modern Digital Book Collection",
   },
   description:
-    "A modern digital library application to manage your book collection.",
+    "Discover Paper Shelves, a beautifully modern digital library application designed to help you seamlessly manage, organize, and track your personal book collection.",
   applicationName: "Paper Shelves",
   openGraph: {
     title: {
       template: "%s | Paper Shelves",
-      default: "Paper Shelves",
+      default: "Paper Shelves | Modern Digital Book Collection",
     },
     description:
-      "A modern digital library application to manage your book collection.",
+      "Discover Paper Shelves, a beautifully modern digital library application designed to help you seamlessly manage, organize, and track your personal book collection.",
     url: "/",
     siteName: "Paper Shelves",
     locale: "en_US",
@@ -49,10 +49,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: {
       template: "%s | Paper Shelves",
-      default: "Paper Shelves",
+      default: "Paper Shelves | Modern Digital Book Collection",
     },
     description:
-      "A modern digital library application to manage your book collection.",
+      "Discover Paper Shelves, a beautifully modern digital library application designed to help you seamlessly manage, organize, and track your personal book collection.",
   },
 };
 
