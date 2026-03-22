@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { AlertTriangle, Loader2, Trash2 } from "lucide-react";
-import { deleteBook } from "@/app/_actions";
+import { deleteBook } from "@/lib/actions";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

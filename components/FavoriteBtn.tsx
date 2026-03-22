@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { toggleFavorite } from "@/app/_actions";
+import { toggleFavorite } from "@/lib/actions";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";

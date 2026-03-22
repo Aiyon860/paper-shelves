@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import { extractIdFromSlug, generateSlug } from "@/lib/utils";
 import { ArrowLeft, BookOpen, Calendar, Pencil, User } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
-import { DeleteBookDialog } from "@/components/DeleteBookDialog";
+import dynamic from "next/dynamic";
+
+const DeleteBookDialog = dynamic(() =>
+  import("@/components/DeleteBookDialog").then((mod) => mod.DeleteBookDialog),
+);
 import { FavoriteBtn } from "@/components/FavoriteBtn";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
@@ -9,6 +14,42 @@ import Link from "next/link";
 
 interface BookPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: BookPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const partialId = extractIdFromSlug(slug);
+
+  const supabase = await createClient();
+  const { data: books } = await supabase
+    .from("books")
+    .select("title, description, author")
+    .ilike("id_text", `%${partialId}`)
+    .limit(1);
+
+  if (!books || books.length === 0) {
+    return {
+      title: "Book Not Found",
+    };
+  }
+
+  const book = books[0];
+  const description = book.description
+    ? book.description.substring(0, 160)
+    : `Details about ${book.title} by ${book.author || "Unknown Author"}`;
+
+  return {
+    title: book.title,
+    description,
+    openGraph: {
+      title: book.title,
+      description,
+      type: "article",
+      authors: book.author ? [book.author] : [],
+    },
+  };
 }
 
 export default async function BookDetailPage({ params }: BookPageProps) {
@@ -40,8 +81,8 @@ export default async function BookDetailPage({ params }: BookPageProps) {
   });
 
   return (
-    <div className="container mx-auto px-4 py-12 md:py-16 max-w-5xl animate-in fade-in duration-500">
-      <div className="mb-8">
+    <article className="container mx-auto px-4 py-12 md:py-16 max-w-5xl animate-in fade-in duration-500">
+      <nav aria-label="Breadcrumb" className="mb-8">
         <Button
           variant="ghost"
           size="sm"
@@ -53,10 +94,10 @@ export default async function BookDetailPage({ params }: BookPageProps) {
             Back to Library
           </Link>
         </Button>
-      </div>
+      </nav>
 
       <div className="flex flex-col md:flex-row gap-10 lg:gap-16">
-        <div className="w-full md:w-1/3 lg:w-1/4 shrink-0">
+        <aside className="w-full md:w-1/3 lg:w-1/4 shrink-0">
           <div className="relative aspect-2/3 w-full md:max-w-xs overflow-hidden rounded-md bg-linear-to-br from-secondary via-background to-muted border border-border/50 shadow-lg dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
             <div className="absolute left-0 top-0 bottom-0 w-5 bg-linear-to-r from-black/10 via-black/5 to-transparent dark:from-black/30 z-10" />
             <div className="absolute left-0 top-0 bottom-0 w-px bg-white/50 dark:bg-white/5 z-20" />
@@ -74,10 +115,10 @@ export default async function BookDetailPage({ params }: BookPageProps) {
 
             <div className="absolute inset-0 bg-linear-to-t from-background/20 to-transparent pointer-events-none z-40" />
           </div>
-        </div>
+        </aside>
 
-        <div className="flex-1 flex flex-col pt-2">
-          <div className="flex items-start justify-between gap-6 mb-4">
+        <section className="flex-1 flex flex-col pt-2">
+          <header className="flex items-start justify-between gap-6 mb-4">
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground leading-tight">
               {book.title}
             </h1>
@@ -87,9 +128,12 @@ export default async function BookDetailPage({ params }: BookPageProps) {
                 initialFavorite={book.is_favorite}
               />
             </div>
-          </div>
+          </header>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm font-medium text-muted-foreground/80 mb-10 pb-6 border-b border-border/50">
+          <div
+            aria-label="Book Metadata"
+            className="flex flex-wrap items-center gap-4 text-sm font-medium text-muted-foreground/80 mb-10 pb-6 border-b border-border/50"
+          >
             <div className="flex items-center gap-1.5">
               <User className="h-4 w-4 text-primary/80" />
               <span className="text-foreground/80">
@@ -118,7 +162,7 @@ export default async function BookDetailPage({ params }: BookPageProps) {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4" aria-label="Book Synopsis">
             <h3 className="font-sans text-xs font-bold tracking-widest uppercase text-muted-foreground">
               Synopsis
             </h3>
@@ -161,8 +205,8 @@ export default async function BookDetailPage({ params }: BookPageProps) {
             </Button>
             <DeleteBookDialog bookId={book.id} bookTitle={book.title} />
           </div>
-        </div>
+        </section>
       </div>
-    </div>
+    </article>
   );
 }

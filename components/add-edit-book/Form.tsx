@@ -1,6 +1,6 @@
 "use client";
 
-import { addBook, updateBook } from "../../app/_actions";
+import { addBook, updateBook } from "../../lib/actions";
 import { useActionState, useEffect, useRef } from "react";
 import { SubmitButton } from "./SubmitBtn";
 import { Input } from "@/components/ui/input";

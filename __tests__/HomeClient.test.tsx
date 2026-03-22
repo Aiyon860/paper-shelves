@@ -70,7 +70,7 @@ describe("HomeClient", () => {
   });
 
   it("renders the empty state when there are no books and no search term", () => {
-    render(<HomeClient books={[]} />);
+    render(<HomeClient books={[]} currentPage={1} totalPages={1} />);
 
     expect(screen.getByText("The shelves are empty")).toBeInTheDocument();
     expect(
@@ -86,7 +86,7 @@ describe("HomeClient", () => {
       new URLSearchParams("search=unknown") as ReadonlyURLSearchParams,
     );
 
-    render(<HomeClient books={[]} />);
+    render(<HomeClient books={[]} currentPage={1} totalPages={1} />);
 
     expect(screen.getByText("No matching books found")).toBeInTheDocument();
     expect(
@@ -97,7 +97,7 @@ describe("HomeClient", () => {
   });
 
   it("renders the list of books correctly", () => {
-    render(<HomeClient books={mockBooks} />);
+    render(<HomeClient books={mockBooks} currentPage={1} totalPages={1} />);
 
     const bookCards = screen.getAllByTestId("book-card");
     expect(bookCards).toHaveLength(2);
@@ -106,7 +106,7 @@ describe("HomeClient", () => {
   });
 
   it("updates the URL properly when typing in the search input", () => {
-    render(<HomeClient books={mockBooks} />);
+    render(<HomeClient books={mockBooks} currentPage={1} totalPages={1} />);
 
     const input = screen.getByPlaceholderText("Search by title...");
 
@@ -123,7 +123,7 @@ describe("HomeClient", () => {
       new URLSearchParams("search=dune") as ReadonlyURLSearchParams,
     );
 
-    render(<HomeClient books={mockBooks} />);
+    render(<HomeClient books={mockBooks} currentPage={1} totalPages={1} />);
 
     const input = screen.getByPlaceholderText("Search by title...");
 

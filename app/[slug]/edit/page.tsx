@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { extractIdFromSlug, generateSlug } from "@/lib/utils";
 import { AlertCircle, ArrowLeft, PenLine } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
-import Form from "@/components/add-edit-book/Form";
+import dynamic from "next/dynamic";
+const Form = dynamic(() => import("@/components/add-edit-book/Form"));
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
@@ -10,6 +12,31 @@ import { connection } from "next/server";
 
 interface EditBookPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: EditBookPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const partialId = extractIdFromSlug(slug);
+
+  const supabase = await createClient();
+  const { data: books } = await supabase
+    .from("books")
+    .select("title")
+    .ilike("id_text", `%${partialId}`)
+    .limit(1);
+
+  if (!books || books.length === 0) {
+    return {
+      title: "Edit Book",
+    };
+  }
+
+  return {
+    title: `Edit ${books[0].title}`,
+    description: `Edit the details for ${books[0].title} in the library archives.`,
+  };
 }
 
 export default async function EditBookPage({ params }: EditBookPageProps) {
@@ -45,7 +72,7 @@ export default async function EditBookPage({ params }: EditBookPageProps) {
 
   return (
     <div className="container mx-auto px-4 py-12 md:py-16 max-w-3xl animate-in fade-in duration-500">
-      <div className="mb-8 flex items-center">
+      <nav aria-label="Breadcrumb" className="mb-8 flex items-center">
         <Button
           variant="ghost"
           size="sm"
@@ -57,9 +84,9 @@ export default async function EditBookPage({ params }: EditBookPageProps) {
             Back to Manuscript
           </Link>
         </Button>
-      </div>
+      </nav>
 
-      <div className="mb-10">
+      <header className="mb-10">
         <div className="flex items-center gap-3 mb-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary border border-primary/20 shadow-sm">
             <PenLine className="h-6 w-6" strokeWidth={1.5} />
@@ -73,7 +100,7 @@ export default async function EditBookPage({ params }: EditBookPageProps) {
           <span className="italic text-foreground/80">{book.title}</span>
           &quot;.
         </p>
-      </div>
+      </header>
 
       {categoriesError && (
         <div className="mb-6 p-4 rounded-md bg-destructive/10 text-destructive flex items-center gap-2 text-sm font-medium">

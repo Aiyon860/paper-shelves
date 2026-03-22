@@ -1,11 +1,18 @@
+import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle, ArrowLeft, BookPlus } from "lucide-react";
 
-import Form from "@/components/add-edit-book/Form";
+import dynamic from "next/dynamic";
+const Form = dynamic(() => import("@/components/add-edit-book/Form"));
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { connection } from "next/server";
+
+export const metadata: Metadata = {
+  title: "Add Book",
+  description: "Add a new book to the library archives.",
+};
 
 export default async function AddBookPage() {
   await connection();

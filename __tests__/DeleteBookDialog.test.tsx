@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { deleteBook } from "@/app/_actions";
+import { deleteBook } from "@/lib/actions";
 import { DeleteBookDialog } from "@/components/DeleteBookDialog";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";

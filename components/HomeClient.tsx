@@ -2,10 +2,18 @@
 
 import { Library, Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useTransition } from "react";
+import { useTransition } from "react";
 import { BookCard } from "@/components/BookCard";
 import { Input } from "@/components/ui/input";
 import { useDebouncedCallback } from "use-debounce";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 type Book = {
   id: string;
@@ -19,20 +27,32 @@ type Book = {
     | null;
 };
 
-export default function HomeClient({ books }: { books: Book[] }) {
+export default function HomeClient({
+  books,
+  currentPage,
+  totalPages,
+}: {
+  books: Book[];
+  currentPage: number;
+  totalPages: number;
+  searchQuery?: string;
+}) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
   const [isPending, startTransition] = useTransition();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const prevPending = useRef(isPending);
 
-  useEffect(() => {
-    if (prevPending.current && !isPending) {
-      inputRef.current?.focus();
-    }
-    prevPending.current = isPending;
-  }, [isPending]);
+  const handlePageChange = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    page: number,
+  ) => {
+    e.preventDefault();
+    const params = new URLSearchParams(searchParams);
+    params.set("page", page.toString());
+    startTransition(() => {
+      replace(`${pathname}?${params.toString()}`);
+    });
+  };
 
   const searchTerm = searchParams.get("search");
 
@@ -68,7 +88,6 @@ export default function HomeClient({ books }: { books: Book[] }) {
             strokeWidth={1.5}
           />
           <Input
-            ref={inputRef}
             type="search"
             placeholder="Search by title..."
             disabled={isPending}
@@ -107,6 +126,60 @@ export default function HomeClient({ books }: { books: Book[] }) {
               is_favorite={book.is_favorite ?? false}
             />
           ))}
+        </div>
+      )}
+
+      {totalPages > 1 && (
+        <div className="mt-12">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  onClick={(e) =>
+                    currentPage > 1 && handlePageChange(e, currentPage - 1)
+                  }
+                  aria-disabled={currentPage <= 1 || isPending}
+                  className={
+                    currentPage <= 1 || isPending
+                      ? "pointer-events-none opacity-50"
+                      : ""
+                  }
+                />
+              </PaginationItem>
+
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <PaginationItem key={i + 1}>
+                  <PaginationLink
+                    href="#"
+                    onClick={(e) => handlePageChange(e, i + 1)}
+                    isActive={currentPage === i + 1}
+                    className={
+                      isPending ? "pointer-events-none opacity-50" : ""
+                    }
+                  >
+                    {i + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+
+              <PaginationItem>
+                <PaginationNext
+                  href="#"
+                  onClick={(e) =>
+                    currentPage < totalPages &&
+                    handlePageChange(e, currentPage + 1)
+                  }
+                  aria-disabled={currentPage >= totalPages || isPending}
+                  className={
+                    currentPage >= totalPages || isPending
+                      ? "pointer-events-none opacity-50"
+                      : ""
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       )}
     </div>

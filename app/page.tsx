@@ -1,16 +1,15 @@
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 
-import HomeClient from "@/components/HomeClient";
+const HomeClient = dynamic(() => import("@/components/HomeClient"));
 import { createClient } from "@/lib/supabase/server";
 import { AlertCircle } from "lucide-react";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Browse the collection of books in Paper Shelves.",
+};
 
 export async function getBooks({
   from,
@@ -44,7 +43,7 @@ export default async function Home({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
   const params = await searchParams;
   const searchQuery = params?.search?.toString().trim().toLowerCase();
   const currentPage = params?.page ? Number(params.page) : 1;
@@ -85,56 +84,11 @@ export default async function Home({
   }
 
   return (
-    <>
-      <HomeClient books={books || []} />
-      {totalPages > 1 && (
-        <div className="container mx-auto px-4 pb-12 max-w-7xl">
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  href={
-                    currentPage > 1
-                      ? `/?page=${currentPage - 1}${searchQuery ? `&search=${searchQuery}` : ""}`
-                      : "#"
-                  }
-                  aria-disabled={currentPage <= 1}
-                  className={
-                    currentPage <= 1 ? "pointer-events-none opacity-50" : ""
-                  }
-                />
-              </PaginationItem>
-
-              {Array.from({ length: totalPages }).map((_, i) => (
-                <PaginationItem key={i + 1}>
-                  <PaginationLink
-                    href={`/?page=${i + 1}${searchQuery ? `&search=${searchQuery}` : ""}`}
-                    isActive={currentPage === i + 1}
-                  >
-                    {i + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
-
-              <PaginationItem>
-                <PaginationNext
-                  href={
-                    currentPage < totalPages
-                      ? `/?page=${currentPage + 1}${searchQuery ? `&search=${searchQuery}` : ""}`
-                      : "#"
-                  }
-                  aria-disabled={currentPage >= totalPages}
-                  className={
-                    currentPage >= totalPages
-                      ? "pointer-events-none opacity-50"
-                      : ""
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        </div>
-      )}
-    </>
+    <HomeClient
+      books={books || []}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      searchQuery={searchQuery}
+    />
   );
 }

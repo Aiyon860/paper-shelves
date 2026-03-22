@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { BookCard } from "@/components/BookCard";
 
 // Mock app/actions to prevent Supabase initialization in tests
-vi.mock("@/app/actions", () => ({
+vi.mock("@/lib/actions", () => ({
   toggleFavorite: vi.fn(),
   deleteBook: vi.fn(),
 }));
